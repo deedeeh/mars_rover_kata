@@ -3,7 +3,11 @@ export default class Plateau {
   y: number;
 
   constructor(x: number, y: number) {
-    this.x = x;
-    this.y = y
+    if(x >= 3 && y >= 3 ) {
+      this.x = x;
+      this.y = y;
+    } else {
+      throw new Error('Coordinates should be bigger than 2'); 
+    }
   }
 }
