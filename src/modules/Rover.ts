@@ -9,6 +9,10 @@ export default class Rover {
     this.direction = direction;
   }
   
+  /** 
+   * Implements the functionality to move the Rover 
+   * @param instructions - given a string of letters to move the Rover; R, L, M  
+  */
   movement(instructions: string): void {
     instructions.split('').forEach(letter => {
       switch(letter) {
@@ -66,12 +70,3 @@ export default class Rover {
     });
   }
 }
-
-const rover1 = new Rover(1, 2, 'N');
-const rover2 = new Rover(3, 3, 'E');
-
-rover1.movement('LMLMLMLMM');
-rover2.movement('MMRMMRMRRM');
-
-console.log(rover1)
-console.log(rover2)
