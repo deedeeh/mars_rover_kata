@@ -13,7 +13,7 @@ export default class Rover {
     if(direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
       this.direction = direction;
     } else {
-      throw new Error('Direction should be 1 letter of N, S, W or E');
+      throw new Error('Direction should be 1 capital letter of N, S, W or E');
     } 
   }
   

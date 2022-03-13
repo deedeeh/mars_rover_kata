@@ -12,6 +12,18 @@ describe('Rover', () => {
   })
 
   test.each([
+    {x: 1, y: 2, direction: 'A'},
+    {x: 1, y: 2, direction: 'AB'},
+    {x: 1, y: 2, direction: 'NN'},
+    {x: 1, y: 2, direction: 'n'},
+    {x: 1, y: 2, direction: 'Ne'},
+  ])('throws an error if direction is not N, S, W or E', ({x, y, direction}) => {
+    expect(() => {
+      new Rover(x, y, direction);
+    }).toThrow('Direction should be 1 capital letter of N, S, W or E');
+  });
+
+  test.each([
     {x: 1, y: 2, direction: 'N'},
     {x: 0, y: 2, direction: 'S'},
     {x: 0, y: 6, direction: 'W'},
