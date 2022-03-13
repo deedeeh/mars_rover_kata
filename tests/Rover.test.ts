@@ -35,6 +35,26 @@ describe('Rover', () => {
 });
 
 test.each([
+  {x: 0, y: 1, direction: 'N', instructions: 'LM'},
+  {x: 1, y: 1, direction: 'S', instructions: 'RMML'},
+])('throws an error if x coordinate is negative number after rover movement', ({x, y, direction, instructions}) => {
+  expect(() => {
+    const rover = new Rover(x, y, direction);
+    rover.movement(instructions);
+  }).toThrow('x coordinate should be bigger than or equal to 0');
+});
+
+test.each([
+  {x: 1, y: 0, direction: 'W', instructions: 'LM'},
+  {x: 1, y: 1, direction: 'E', instructions: 'RMML'},
+])('throws an error if y coordinate is negative number after rover movement', ({x, y, direction, instructions}) => {
+  expect(() => {
+    const rover = new Rover(x, y, direction);
+    rover.movement(instructions);
+  }).toThrow('y coordinate should be bigger than or equal to 0');
+});
+
+test.each([
   {x: 1, y: 2, direction: 'N', instructions: 'LMLMLMLMM', expected: {x: 1, y: 3, direction: 'N'}},
   {x: 3, y: 3, direction: 'E', instructions: 'MMRMMRMRRM', expected: {x: 5, y: 1, direction: 'E'}},
   {x: 2, y: 3, direction: 'W', instructions: 'LLMRMMRM', expected: {x: 2, y: 1, direction: 'W'}},
@@ -42,4 +62,5 @@ test.each([
   const rover = new Rover(x, y, direction);
   rover.movement(instructions);
   expect(rover).toEqual(expected);
-})
+});
+
