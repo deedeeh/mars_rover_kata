@@ -55,6 +55,16 @@ test.each([
 });
 
 test.each([
+  {x: 1, y: 2, direction: 'W', instructions: 'LMMB'},
+  {x: 1, y: 2, direction: 'E', instructions: 'MRRAA'},
+])('throws an error if instructions includes letters that are not L, R and M', ({x, y, direction, instructions}) => {
+  expect(() => {
+    const rover = new Rover(x, y, direction);
+    rover.movement(instructions);
+  }).toThrow('Instructions may include letter L, R and M');
+});
+
+test.each([
   {x: 1, y: 2, direction: 'N', instructions: 'LMLMLMLMM', expected: {x: 1, y: 3, direction: 'N'}},
   {x: 3, y: 3, direction: 'E', instructions: 'MMRMMRMRRM', expected: {x: 5, y: 1, direction: 'E'}},
   {x: 2, y: 3, direction: 'W', instructions: 'LLMRMMRM', expected: {x: 2, y: 1, direction: 'W'}},
