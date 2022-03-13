@@ -4,9 +4,17 @@ export default class Rover {
   direction: string;
 
   constructor(x: number, y: number, direction: string) {
-    this.x = x;
-    this.y = y;
-    this.direction = direction;
+    if(x >= 0 && y >= 0) {
+      this.x = x;
+      this.y = y;
+    } else {
+      throw new Error('Coordinates should be bigger than or equal to 0');
+    }
+    if(direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
+      this.direction = direction;
+    } else {
+      throw new Error('Direction should be 1 letter of N, S, W or E');
+    } 
   }
   
   /** 
@@ -15,58 +23,60 @@ export default class Rover {
   */
   movement(instructions: string): void {
     instructions.split('').forEach(letter => {
-      switch(letter) {
-        case 'L': 
-          switch(this.direction) {
-            case 'N':
-              this.direction = 'W';
-              break;
-            case 'S':
-              this.direction = 'E';
-              break;
-            case 'W':
-              this.direction = 'S';
-              break;
-            case 'E':
-              this.direction = 'N';
-              break;
+      if(letter === 'L' || letter === 'R' || letter === 'M') {
+        switch(letter) {
+          case 'L': 
+            switch(this.direction) {
+              case 'N':
+                this.direction = 'W';
+                break;
+              case 'S':
+                this.direction = 'E';
+                break;
+              case 'W':
+                this.direction = 'S';
+                break;
+              case 'E':
+                this.direction = 'N';
+                break;
+            }
+            break;
+          case 'R':
+            switch(this.direction) {
+              case 'N':
+                this.direction = 'E';
+                break;
+              case 'S':
+                this.direction = 'W';
+                break;
+              case 'W':
+                this.direction = 'N';
+                break;
+              case 'E':
+                this.direction = 'S';
+                break;
+            }
+            break;
+          case 'M':
+            switch(this.direction) {
+              case 'N':
+                this.y += 1;
+                break;
+              case 'S':
+                this.y -= 1;
+                break;
+              case 'W':
+                this.x -= 1;
+                break;
+              case 'E':
+                this.x += 1;
+                break;
+            }
+            break;
           }
-          break;
-        case 'R':
-          switch(this.direction) {
-            case 'N':
-              this.direction = 'E';
-              break;
-            case 'S':
-              this.direction = 'W';
-              break;
-            case 'W':
-              this.direction = 'N';
-              break;
-            case 'E':
-              this.direction = 'S';
-              break;
-          }
-          break;
-        case 'M':
-          switch(this.direction) {
-            case 'N':
-              this.y += 1;
-              break;
-            case 'S':
-              this.y -= 1;
-              break;
-            case 'W':
-              this.x -= 1;
-              break;
-            case 'E':
-              this.x += 1;
-              break;
-          }
-          break;
-          default:
-            return `Sorry, there is no ${letter} as a rover moving instruction`
-      }
+        } else {
+          throw new Error('Instructions may include letter L, R and M');
+        }
     });
   }
 }
