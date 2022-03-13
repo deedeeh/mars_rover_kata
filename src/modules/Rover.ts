@@ -63,9 +63,18 @@ export default class Rover {
                 this.y += 1;
                 break;
               case 'S':
-                this.y -= 1;
+                if(this.y !== 0) {
+                  this.y -= 1;
+                } else {
+                  throw new Error('y coordinate should be bigger than or equal to 0');
+                }
                 break;
               case 'W':
+                if(this.x !== 0) {
+                  this.y -= 1;
+                } else {
+                  throw new Error('x coordinate should be bigger than or equal to 0');
+                }
                 this.x -= 1;
                 break;
               case 'E':
