@@ -33,3 +33,13 @@ describe('Rover', () => {
     expect(rover).toBeTruthy;
   })
 });
+
+test.each([
+  {x: 1, y: 2, direction: 'N', instructions: 'LMLMLMLMM', expected: {x: 1, y: 3, direction: 'N'}},
+  {x: 3, y: 3, direction: 'E', instructions: 'MMRMMRMRRM', expected: {x: 5, y: 1, direction: 'E'}},
+  {x: 2, y: 3, direction: 'W', instructions: 'LLMRMMRM', expected: {x: 2, y: 1, direction: 'W'}},
+])('returns the correct coordinates and direction as a string', ({x, y, direction, instructions, expected}) => {
+  const rover = new Rover(x, y, direction);
+  rover.movement(instructions);
+  expect(rover).toEqual(expected);
+})

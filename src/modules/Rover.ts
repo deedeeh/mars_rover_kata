@@ -23,67 +23,64 @@ export default class Rover {
   */
   movement(instructions: string): void {
     instructions.split('').forEach(letter => {
-      if(letter === 'L' || letter === 'R' || letter === 'M') {
-        switch(letter) {
-          case 'L': 
-            switch(this.direction) {
-              case 'N':
-                this.direction = 'W';
-                break;
-              case 'S':
-                this.direction = 'E';
-                break;
-              case 'W':
-                this.direction = 'S';
-                break;
-              case 'E':
-                this.direction = 'N';
-                break;
-            }
-            break;
-          case 'R':
-            switch(this.direction) {
-              case 'N':
-                this.direction = 'E';
-                break;
-              case 'S':
-                this.direction = 'W';
-                break;
-              case 'W':
-                this.direction = 'N';
-                break;
-              case 'E':
-                this.direction = 'S';
-                break;
-            }
-            break;
-          case 'M':
-            switch(this.direction) {
-              case 'N':
-                this.y += 1;
-                break;
-              case 'S':
-                if(this.y !== 0) {
-                  this.y -= 1;
-                } else {
-                  throw new Error('y coordinate should be bigger than or equal to 0');
-                }
-                break;
-              case 'W':
-                if(this.x !== 0) {
-                  this.y -= 1;
-                } else {
-                  throw new Error('x coordinate should be bigger than or equal to 0');
-                }
-                this.x -= 1;
-                break;
-              case 'E':
-                this.x += 1;
-                break;
-            }
-            break;
+      switch(letter) {
+        case 'L': 
+          switch(this.direction) {
+            case 'N':
+              this.direction = 'W';
+              break;
+            case 'S':
+              this.direction = 'E';
+              break;
+            case 'W':
+              this.direction = 'S';
+              break;
+            case 'E':
+              this.direction = 'N';
+              break;
           }
-        } else {
+          break;
+        case 'R':
+          switch(this.direction) {
+            case 'N':
+              this.direction = 'E';
+              break;
+            case 'S':
+              this.direction = 'W';
+              break;
+            case 'W':
+              this.direction = 'N';
+              break;
+            case 'E':
+              this.direction = 'S';
+              break;
+          }
+          break;
+        case 'M':
+          switch(this.direction) {
+            case 'N':
+              this.y += 1;
+              break;
+            case 'S':
+              if(this.y !== 0) {
+                this.y -= 1;
+              } else {
+                throw new Error('y coordinate should be bigger than or equal to 0');
+              }
+              break;
+            case 'W':
+              if(this.x !== 0) {
+                this.x -= 1;
+              } else {
+                throw new Error('x coordinate should be bigger than or equal to 0');
+              }
+              break;
+            case 'E':
+              this.x += 1;
+              break;
+          }
+          break;
+        default: 
           throw new Error('Instructions may include letter L, R and M');
         }
     });
