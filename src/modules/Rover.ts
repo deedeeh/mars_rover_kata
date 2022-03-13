@@ -22,7 +22,7 @@ export default class Rover {
    * @param instructions - given a string of letters to move the Rover; R, L, M  
   */
   movement(instructions: string): void {
-    instructions.split('').forEach(letter => {
+    instructions.toUpperCase().split('').forEach(letter => {
       switch(letter) {
         case 'L': 
           switch(this.direction) {

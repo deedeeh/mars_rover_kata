@@ -68,9 +68,20 @@ test.each([
   {x: 1, y: 2, direction: 'N', instructions: 'LMLMLMLMM', expected: {x: 1, y: 3, direction: 'N'}},
   {x: 3, y: 3, direction: 'E', instructions: 'MMRMMRMRRM', expected: {x: 5, y: 1, direction: 'E'}},
   {x: 2, y: 3, direction: 'W', instructions: 'LLMRMMRM', expected: {x: 2, y: 1, direction: 'W'}},
-])('returns the correct coordinates and direction as a string', ({x, y, direction, instructions, expected}) => {
+])('returns the correct result when given coordinates ($x, $y),direction $direction and instructions $instructions', ({x, y, direction, instructions, expected}) => {
   const rover = new Rover(x, y, direction);
   rover.movement(instructions);
   expect(rover).toEqual(expected);
 });
+
+test.each([
+  {x: 1, y: 2, direction: 'N', instructions: 'lmlmlmlmm', expected: {x: 1, y: 3, direction: 'N'}},
+  {x: 3, y: 3, direction: 'E', instructions: 'MmrMMrmrRM', expected: {x: 5, y: 1, direction: 'E'}},
+])('ignores case sensitive letters in instructions', ({x, y, direction, instructions, expected}) => {
+  const rover = new Rover(x, y, direction);
+  rover.movement(instructions);
+  expect(rover).toEqual(expected);
+});
+
+
 
