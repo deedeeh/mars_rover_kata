@@ -10,6 +10,10 @@ export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions:
   } else {
     throw new Error('Plateau coordinates must be bigger than or equal to rover coordinates.');
   }
+
+  if(theRover.x > marsPlateau.x || theRover.y > marsPlateau.y) {
+    throw new Error('Rover coordinates will be bigger than plateau so rover stopped moving')
+  }
   
   return `${theRover.x}, ${theRover.y}, ${theRover.direction}`
 }
