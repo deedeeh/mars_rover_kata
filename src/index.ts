@@ -45,21 +45,8 @@ const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): 
         rover.direction = directionsFunctionality(directionR, rover);
         break;
       case 'M': 
-        switch(rover.direction) {
-          case 'N':
-            plateau.y > rover.y ? rover.y += 1 : isValid = false;
-          break;
-          case 'S':
-            rover.y > 0 ? rover.y -= 1 : isValid = false;
-          break;
-          case 'W':
-            rover.x > 0 ? rover.x -= 1 : isValid = false
-          break
-          case 'E':
-            plateau.x > rover.x ? rover.x += 1 : isValid = false;
-          break;
-        }
-      break;
+        isValid = isValidMove(plateau, rover);
+        break;
       default: 
         throw new Error('Instructions may include letter L, R and M');
       }
@@ -72,4 +59,23 @@ const directionsFunctionality = (directions: Directions, rover: Rover): string =
   const foundKey = getKeys(directions).find(direction => direction === rover.direction) || 'N';
   return directions[foundKey];
 }
+
+const isValidMove = (plateau: Plateau, rover: Rover): boolean => {
+  let isValid = true;
+  switch(rover.direction) {
+    case 'N':
+      plateau.y > rover.y ? rover.y += 1 : isValid = false;
+    break;
+    case 'S':
+      rover.y > 0 ? rover.y -= 1 : isValid = false;
+    break;
+    case 'W':
+      rover.x > 0 ? rover.x -= 1 : isValid = false
+    break
+    case 'E':
+      plateau.x > rover.x ? rover.x += 1 : isValid = false;
+    break;
+  }
+  return isValid;
+} 
 
