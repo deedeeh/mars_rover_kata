@@ -47,36 +47,16 @@ const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): 
       case 'M': 
         switch(rover.direction) {
           case 'N':
-            if(plateau.y > rover.y) {
-              rover.y += 1; 
-              isValid;
-            } else {
-              isValid = false;
-            }
+            plateau.y > rover.y ? rover.y += 1 : isValid = false;
           break;
           case 'S':
-            if(rover.y > 0) {
-              rover.y -= 1; 
-              isValid;
-            } else {
-              isValid = false;
-            }
+            rover.y > 0 ? rover.y -= 1 : isValid = false;
           break;
           case 'W':
-            if(rover.x > 0) {
-              rover.x -= 1;
-              isValid;
-            } else {
-              isValid = false
-            }
+            rover.x > 0 ? rover.x -= 1 : isValid = false
           break
           case 'E':
-            if(plateau.x > rover.x) {
-              rover.x += 1;
-              isValid;
-            } else {
-              isValid = false;
-            }
+            plateau.x > rover.x ? rover.x += 1 : isValid = false;
           break;
         }
       break;
@@ -92,3 +72,4 @@ const directionsFunctionality = (directions: Directions, rover: Rover): string =
   const foundKey = getKeys(directions).find(direction => direction === rover.direction) || 'N';
   return directions[foundKey];
 }
+
