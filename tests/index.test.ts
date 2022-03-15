@@ -20,10 +20,11 @@ describe('moveRoverOnPlateau', () => {
     expect(movedRoverOnPlateau).toBe(expected);
   })
 
-  test.each([ {plateauX: 5, plateauY: 5, roverX: 10, roverY: 5, direction: 'N', instructions: 'LM'},
-  {plateauX: 5, plateauY: 5, roverX: 4, roverY: 12, direction: 'N', instructions: 'LMLMLMLMM'},
-  {plateauX: 5, plateauY: 5, roverX: 8, roverY: 8, direction: 'E', instructions: 'MMRMMRMRRM'},
-])('throws an error if rover given coordinates ($roverX, $roverY) are bigger than plateau given coordinates ($plateauX, $plateauY)', ({plateauX, plateauY, roverX, roverY, direction, instructions}) => {
+  test.each([ 
+    {plateauX: 5, plateauY: 5, roverX: 6, roverY: 5, direction: 'N', instructions: 'LM'},
+    {plateauX: 5, plateauY: 5, roverX: 4, roverY: 12, direction: 'N', instructions: 'LMLMLMLMM'},
+    {plateauX: 5, plateauY: 5, roverX: 8, roverY: 8, direction: 'E', instructions: 'MMRMMRMRRM'},
+  ])('throws an error if rover given coordinates ($roverX, $roverY) are bigger than plateau given coordinates ($plateauX, $plateauY)', ({plateauX, plateauY, roverX, roverY, direction, instructions}) => {
   const plateau = new Plateau(plateauX, plateauY);
   const rover = new Rover(roverX, roverY, direction);
   expect(() => {
@@ -48,4 +49,25 @@ describe('moveRoverOnPlateau', () => {
     expect(movedRoverOnPlateau).toBe(expected);
   });
 
+  test.each([
+    {plateauX: 5, plateauY: 5, roverX: 1, roverY: 2, direction: 'N', instructions: 'lmlmlmlmm', expected: '1, 3, N'},
+    {plateauX: 5, plateauY: 5, roverX: 3, roverY: 3, direction: 'E', instructions: 'MmrMMrmrRM', expected: '5, 1, E'},
+  ])('ignores case sensitive letters in instructions', ({plateauX, plateauY, roverX, roverY, direction, instructions, expected}) => {
+    const plateau = new Plateau(plateauX, plateauY);
+    const rover = new Rover(roverX, roverY, direction);
+    const movedRoverOnPlateau = moveRoverOnPlateau(plateau, rover, instructions)
+    expect(movedRoverOnPlateau).toEqual(expected);
+  });
+
+});
+
+test.each([
+  {plateauX: 5, plateauY: 5, roverX: 1, roverY: 2, direction: 'W', instructions: 'LMMB'},
+  {plateauX: 8, plateauY: 8, roverX: 1, roverY: 2, direction: 'E', instructions: 'MRRAA'},
+])('throws an error if instructions includes letters that are not L, R and M', ({plateauX, plateauY, roverX, roverY, direction, instructions}) => {
+  const plateau = new Plateau(plateauX, plateauY);
+  const rover = new Rover(roverX, roverY, direction);
+  expect(() => {
+    moveRoverOnPlateau(plateau, rover, instructions)
+  }).toThrow('Instructions may include letter L, R and M');
 });
