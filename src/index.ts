@@ -1,6 +1,20 @@
 import Plateau from "./modules/Plateau"
 import Rover from "./modules/Rover"
 
+interface Directions {
+  N: string;
+  S: string;
+  W: string;
+  E: string;
+}
+
+const directionL = {
+  N: 'W',
+  S: 'E',
+  W: 'S',
+  E: 'N'
+}
+
 export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions: string): string => {
   let isValid = false;
 
@@ -30,20 +44,7 @@ const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): 
   instructions.toUpperCase().split('').forEach(letter => {
     switch(letter) {
       case 'L': 
-        switch(rover.direction) {
-          case 'N':
-            rover.direction = 'W';
-            break;
-          case 'S':
-            rover.direction = 'E';
-            break;
-          case 'W':
-            rover.direction = 'S';
-            break;
-          case 'E':
-            rover.direction = 'N';
-            break;
-        }
+        rover.direction = instructionsFunctionality(directionL, rover);
         break;
       case 'R':
         switch(rover.direction) {
@@ -102,4 +103,10 @@ const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): 
       }
   });
   return isValid;
+}
+
+const instructionsFunctionality = (directions: Directions, rover: Rover): string => {
+  const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
+  const foundKey = getKeys(directions).find(direction => direction === rover.direction) || 'N';
+  return directions[foundKey];
 }
