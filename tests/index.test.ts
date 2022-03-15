@@ -8,7 +8,7 @@ describe('moveRoverOnPlateau', () => {
     {plateauX: 4, plateauY: 4, roverX: 1, roverY: 3, direction: 'N', instructions: 'LMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 3, W)'},
     {plateauX: 5, plateauY: 6, roverX: 1, roverY: 2, direction: 'W', instructions: 'LMMRMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 0, W)'},
     {plateauX: 10, plateauY: 5, roverX: 8, roverY: 4, direction: 'E', instructions: 'LMRMMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (10, 5, E)'},
-  ])('returns a string contains last rover coordinates and direction in plateau range before it stops', ({plateauX, plateauY, roverX, roverY, direction, instructions, expected}) => {
+  ])('returns a string contains last rover coordinates and direction in plateau range before it stopped', ({plateauX, plateauY, roverX, roverY, direction, instructions, expected}) => {
     //Arrange
     const plateau = new Plateau(plateauX, plateauY);
     const rover = new Rover(roverX, roverY, direction);

@@ -42,17 +42,17 @@ export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions:
   */
 
 const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): boolean => {
-  const directionL = {N: 'W', S: 'E', W: 'S', E: 'N'}
-  const directionR = {N: 'E', S: 'W', W: 'N', E: 'S'}
+  const directionsL = {N: 'W', S: 'E', W: 'S', E: 'N'}
+  const directionsR = {N: 'E', S: 'W', W: 'N', E: 'S'}
   let isValid = true; 
 
   instructions.toUpperCase().split('').forEach(letter => {
     switch(letter) {
       case 'L': 
-        rover.direction = directionsFunctionality(directionL, rover);
+        rover.direction = directionsFunctionality(directionsL, rover);
         break;
       case 'R':
-        rover.direction = directionsFunctionality(directionR, rover);
+        rover.direction = directionsFunctionality(directionsR, rover);
         break;
       case 'M': 
         isValid = isValidMove(plateau, rover);
