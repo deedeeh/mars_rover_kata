@@ -8,13 +8,6 @@ interface Directions {
   E: string;
 }
 
-const directionL = {
-  N: 'W',
-  S: 'E',
-  W: 'S',
-  E: 'N'
-}
-
 export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions: string): string => {
   let isValid = false;
 
@@ -39,28 +32,17 @@ export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions:
   */
 
 const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): boolean => {
+  const directionL = {N: 'W', S: 'E', W: 'S', E: 'N'}
+  const directionR = {N: 'E', S: 'W', W: 'N', E: 'S'}
   let isValid = true; 
 
   instructions.toUpperCase().split('').forEach(letter => {
     switch(letter) {
       case 'L': 
-        rover.direction = instructionsFunctionality(directionL, rover);
+        rover.direction = directionsFunctionality(directionL, rover);
         break;
       case 'R':
-        switch(rover.direction) {
-          case 'N':
-            rover.direction = 'E';
-            break;
-          case 'S':
-            rover.direction = 'W';
-            break;
-          case 'W':
-            rover.direction = 'N';
-            break;
-          case 'E':
-            rover.direction = 'S';
-            break;
-        }
+        rover.direction = directionsFunctionality(directionR, rover);
         break;
       case 'M': 
         switch(rover.direction) {
@@ -105,7 +87,7 @@ const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): 
   return isValid;
 }
 
-const instructionsFunctionality = (directions: Directions, rover: Rover): string => {
+const directionsFunctionality = (directions: Directions, rover: Rover): string => {
   const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
   const foundKey = getKeys(directions).find(direction => direction === rover.direction) || 'N';
   return directions[foundKey];
