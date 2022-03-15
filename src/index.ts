@@ -8,6 +8,15 @@ interface Directions {
   E: string;
 }
 
+/** 
+   * The output function of Mars Rover Kata 
+   *   
+   * @param plateau - type Plateau 
+   * @param rover - type Rover 
+   * @param instructions - given a string of letters to move the Rover; R, L, M
+   * @returns the new rover coordinates or a message with the last coordinates in plateau range before it stopped moving.
+  */
+
 export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions: string): string => {
   let isValid = false;
 
@@ -29,6 +38,7 @@ export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions:
    * @param plateau - type Plateau 
    * @param rover - type Rover 
    * @param instructions - given a string of letters to move the Rover; R, L, M  
+   * @returns the value true if rover completed the full instructions and still in plateau range or false if it stopped in the middle.
   */
 
 const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): boolean => {
@@ -54,11 +64,25 @@ const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): 
   return isValid;
 }
 
+/** 
+   * Implements the functionality of rover direction when moving left or right
+   * @param directions - type Directions  
+   * @param rover - type Rover 
+   * @returns the rover new direction based on L or R
+  */
+
 const directionsFunctionality = (directions: Directions, rover: Rover): string => {
   const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
   const foundKey = getKeys(directions).find(direction => direction === rover.direction) || 'N';
   return directions[foundKey];
 }
+
+/** 
+   * Implements the functionality of rover movement on Plateau based on rover direction
+   * @param plateau - type Plateau  
+   * @param rover - type Rover 
+   * @returns the value true if rover is still in plateau range after the move or otherwise false
+  */
 
 const isValidMove = (plateau: Plateau, rover: Rover): boolean => {
   let isValid = true;
