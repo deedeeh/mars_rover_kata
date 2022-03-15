@@ -4,15 +4,30 @@ import Rover from '../src/modules/Rover';
 
 describe('moveRoverOnPlateau', () => {
 
+  test.each([
+    {plateauX: 4, plateauY: 4, roverX: 1, roverY: 3, direction: 'N', instructions: 'LMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 3, W)'},
+    {plateauX: 5, plateauY: 6, roverX: 1, roverY: 2, direction: 'W', instructions: 'LMMRMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 0, W)'},
+    {plateauX: 10, plateauY: 5, roverX: 8, roverY: 4, direction: 'E', instructions: 'LMRMMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (10, 5, E)'},
+  ])('returns a string contains last rover coordinates and direction in plateau range before it stops', ({plateauX, plateauY, roverX, roverY, direction, instructions, expected}) => {
+    //Arrange
+    const plateau = new Plateau(plateauX, plateauY);
+    const rover = new Rover(roverX, roverY, direction);
+
+    //Act 
+    const movedRoverOnPlateau = moveRoverOnPlateau(plateau, rover, instructions);
+
+    //Assert
+    expect(movedRoverOnPlateau).toBe(expected);
+  })
+
   test.each([ {plateauX: 5, plateauY: 5, roverX: 10, roverY: 5, direction: 'N', instructions: 'LM'},
   {plateauX: 5, plateauY: 5, roverX: 4, roverY: 12, direction: 'N', instructions: 'LMLMLMLMM'},
   {plateauX: 5, plateauY: 5, roverX: 8, roverY: 8, direction: 'E', instructions: 'MMRMMRMRRM'},
-])('throws an error if rover coordinates ($roverX, $roverY) are bigger than plateau coordinates ($plateauX, $plateauY)', ({plateauX, plateauY, roverX, roverY, direction, instructions}) => {
+])('throws an error if rover given coordinates ($roverX, $roverY) are bigger than plateau given coordinates ($plateauX, $plateauY)', ({plateauX, plateauY, roverX, roverY, direction, instructions}) => {
   const plateau = new Plateau(plateauX, plateauY);
   const rover = new Rover(roverX, roverY, direction);
-  const roverInstructions = instructions;
   expect(() => {
-    moveRoverOnPlateau(plateau, rover, roverInstructions);
+    moveRoverOnPlateau(plateau, rover, instructions);
   }).toThrow('Plateau given coordinates must be bigger than or equal to rover given coordinates.')
 });
 
@@ -25,10 +40,9 @@ describe('moveRoverOnPlateau', () => {
     //Arrange
     const plateau = new Plateau(plateauX, plateauY);
     const rover = new Rover(roverX, roverY, direction);
-    const roverInstructions = instructions;
 
     //Act 
-    const movedRoverOnPlateau = moveRoverOnPlateau(plateau, rover, roverInstructions);
+    const movedRoverOnPlateau = moveRoverOnPlateau(plateau, rover, instructions);
 
     //Assert
     expect(movedRoverOnPlateau).toBe(expected);
