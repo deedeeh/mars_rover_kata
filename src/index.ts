@@ -10,41 +10,31 @@ interface Directions {
 
 /** 
    * The output function of Mars Rover Kata 
-   *   
    * @param plateau - type Plateau 
-   * @param rover - type Rover 
-   * @param instructions - given a string of letters to move the Rover; R, L, M
-   * @returns the new rover coordinates or a message with the last coordinates in plateau range before it stopped moving.
+   * @param rovers - Array of type Rover 
+   * @param theRover - type Rover it applies functionality on the current rover in an array of rovers 
+   * @returns the current rover new coordinates after finishing moving instructions or a message with the last coordinates in plateau range before it stopped moving.
   */
 
-export const moveRoverOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theRover?: Rover): string => {
+export const moveRoversOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theRover: Rover): string => {
   let isValid = false;
-  let index = 0;
-  if(theRover) {
-    index = rovers.indexOf(theRover);
+  const index = rovers.indexOf(theRover);
+  const foundRover = rovers[index]; 
+  
+  if(plateau.x >= foundRover.x && plateau.y >= foundRover.y) {
+    isValid = isValidMovement(plateau, foundRover);
+  } else {
+    throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
   }
-  const roversOutput = rovers.map(rover => {
-    if(plateau.x >= rover.x && plateau.y >= rover.y) {
-      isValid = isValidMovement(plateau, rover);
-    } else {
-      throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
-    }
 
-    if(isValid === true) {
-      return `${rover.x}, ${rover.y}, ${rover.direction}`
-    } else {
-      return `Rover is going to be out of plateau range. It stopped moving at coordinates (${rover.x}, ${rover.y}, ${rover.direction})`
-    }
-  });
-
-  return roversOutput.length <= 1 ? roversOutput[0] : roversOutput[index];
+  return isValid === true ? `${foundRover.x}, ${foundRover.y}, ${foundRover.direction}`
+  : `Rover is going to be out of plateau range. It stopped moving at coordinates (${foundRover.x}, ${foundRover.y}, ${foundRover.direction})`
 }
 
 /** 
    * Implements the functionality and logic behind moving the rover on Mars without falling off the Plateau range
    * @param plateau - type Plateau 
    * @param rover - type Rover 
-   * @param instructions - given a string of letters to move the Rover; R, L, M  
    * @returns the value true if rover completed the full instructions and still in plateau range or false if it stopped in the middle.
   */
 
