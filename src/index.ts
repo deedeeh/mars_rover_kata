@@ -17,22 +17,6 @@ interface Directions {
    * @returns the new rover coordinates or a message with the last coordinates in plateau range before it stopped moving.
   */
 
-// export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions: string): string => {
-//   let isValid = false;
-
-//   if(plateau.x >= rover.x && plateau.y > rover.y) {
-//     isValid = isValidMovement(plateau, rover, instructions);
-//   } else {
-//     throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
-//   }
-  
-//   if(isValid === true) {
-//     return `${rover.x}, ${rover.y}, ${rover.direction}`
-//   } else {
-//     return `Rover is going to be out of plateau range. It stopped moving at coordinates (${rover.x}, ${rover.y}, ${rover.direction})`
-//   }
-// }
-
 export const moveRoverOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theRover?: Rover): string => {
   let isValid = false;
   let index = 0;
