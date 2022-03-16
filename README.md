@@ -10,9 +10,9 @@ This repo is to work with TypeScript and learn more about it in a Test-driven de
 
 - A plateau class with coordinates inputs `(x, y)`
 
-- A rover class with coordinates and direction inputs `(x, y, direction)`
+- A rover class with coordinates, direction and instructions inputs `(x, y, direction, instructions)`
 
-- A function `moveRoverOnMars` that manages final functionality checks and returns the output.  
+- A function `moveRoversOnMars` that takes a `plateau`, `rovers` array and the required `rover` to move. It implements functionality checks and returns the output for the requested rover.  
 
 - Given instructions input to rover `isValidMovement` checks if rover next movement is still in plateau range and based on that it moves or it stops. 
 
@@ -30,11 +30,13 @@ This repo is to work with TypeScript and learn more about it in a Test-driven de
 
 4. Directions might be given in lowercase or invalid direction.
 
+5. If there is more than 1 rover on the plateau a collision might happen whether it is a starting point, in the middle of moving instructions or at the end after completing the instructions. 
+
 ***
 
 ## Approaches
 
-Two classes and an index that manages functionality is the design approach I decided to adopt and the reason is separation of concerns. The main `moveRoverOnMars` function was getting really messy and huge so it was time to refactor by breaking down my functionalities into separate functions and think of better ways to implement functionality.
+Two classes and an index that manages functionality is the design approach I decided to adopt and the reason is separation of concerns. The main `moveRoverOnMars` function was getting really messy and huge so it was time to refactor by breaking down my functionalities into separate functions and think of better ways to maintain the program.
 
 ***
 
@@ -43,6 +45,8 @@ Two classes and an index that manages functionality is the design approach I dec
 The current plateau version could be rectangular or square but not other shapes so in order to consider other shapes I believe there will be more coding lines in plateau class, `isValidMove` and a small change in `isValidMovement`.
 
 This solution supports other vehicles by given `(x, y)` coordinates but that might be not the case with different shaped plateaus.
+
+Currently the program accepts more than one rover on the same plateau but it doesn't handle collisions for multiple rovers so this is something that could be done. 
 
 ***
 
