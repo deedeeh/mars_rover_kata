@@ -30,13 +30,13 @@ This repo is to work with TypeScript and learn more about it in a Test-driven de
 
 4. Directions might be given in lowercase or invalid direction.
 
-5. If there is more than 1 rover on the plateau a collision might happen whether it is a starting point, in the middle of moving instructions or at the end after completing the instructions. 
+5. If there is more than 1 rover on the plateau a collision might happen whether it is a starting point, in the middle of moving instructions or at the end after completing the instructions. (Future Thoughts)
 
 ***
 
 ## Approaches
 
-Two classes and an index that manages functionality is the design approach I decided to adopt and the reason is separation of concerns. The main `moveRoverOnMars` function was getting really messy and huge so it was time to refactor by breaking down my functionalities into separate functions and think of better ways to maintain the program.
+Two classes and an index that manages functionality is the design approach I decided to adopt and the reason is separation of concerns. The main `moveRoverOnMars` function was getting really messy and huge so it was time to refactor by breaking down my functionalities into separate functions and think of better ways to maintain the program. The current program version handles checks for rovers to be in Mars plateau range and not falling off!
 
 ***
 
@@ -46,7 +46,7 @@ The current plateau version could be rectangular or square but not other shapes 
 
 This solution supports other vehicles by given `(x, y)` coordinates but that might be not the case with different shaped plateaus.
 
-Currently the program accepts more than one rover on the same plateau but it doesn't handle collisions for multiple rovers so this is something that could be done. 
+Currently the program accepts more than one rover on the same plateau but it doesn't handle collisions for multiple rovers so this is something that could be done later on. 
 
 ***
 
