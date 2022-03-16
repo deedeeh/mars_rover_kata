@@ -17,20 +17,43 @@ interface Directions {
    * @returns the new rover coordinates or a message with the last coordinates in plateau range before it stopped moving.
   */
 
-export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions: string): string => {
-  let isValid = false;
+// export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions: string): string => {
+//   let isValid = false;
 
-  if(plateau.x >= rover.x && plateau.y > rover.y) {
-    isValid = isValidMovement(plateau, rover, instructions);
-  } else {
-    throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
-  }
+//   if(plateau.x >= rover.x && plateau.y > rover.y) {
+//     isValid = isValidMovement(plateau, rover, instructions);
+//   } else {
+//     throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
+//   }
   
-  if(isValid === true) {
-    return `${rover.x}, ${rover.y}, ${rover.direction}`
-  } else {
-    return `Rover is going to be out of plateau range. It stopped moving at coordinates (${rover.x}, ${rover.y}, ${rover.direction})`
+//   if(isValid === true) {
+//     return `${rover.x}, ${rover.y}, ${rover.direction}`
+//   } else {
+//     return `Rover is going to be out of plateau range. It stopped moving at coordinates (${rover.x}, ${rover.y}, ${rover.direction})`
+//   }
+// }
+
+export const moveRoverOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theRover?: Rover): string => {
+  let isValid = false;
+  let index = 0;
+  if(theRover) {
+    index = rovers.indexOf(theRover);
   }
+  const roversOutput = rovers.map(rover => {
+    if(plateau.x >= rover.x && plateau.y >= rover.y) {
+      isValid = isValidMovement(plateau, rover);
+    } else {
+      throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
+    }
+
+    if(isValid === true) {
+      return `${rover.x}, ${rover.y}, ${rover.direction}`
+    } else {
+      return `Rover is going to be out of plateau range. It stopped moving at coordinates (${rover.x}, ${rover.y}, ${rover.direction})`
+    }
+  });
+
+  return roversOutput.length <= 1 ? roversOutput[0] : roversOutput[index];
 }
 
 /** 
@@ -41,12 +64,12 @@ export const moveRoverOnPlateau = (plateau: Plateau, rover: Rover, instructions:
    * @returns the value true if rover completed the full instructions and still in plateau range or false if it stopped in the middle.
   */
 
-const isValidMovement = (plateau: Plateau, rover: Rover, instructions: string): boolean => {
+const isValidMovement = (plateau: Plateau, rover: Rover): boolean => {
   const directionsL = {N: 'W', S: 'E', W: 'S', E: 'N'}
   const directionsR = {N: 'E', S: 'W', W: 'N', E: 'S'}
   let isValid = true; 
 
-  instructions.toUpperCase().split('').forEach(letter => {
+  rover.instructions.toUpperCase().split('').forEach(letter => {
     switch(letter) {
       case 'L': 
         rover.direction = directionsFunctionality(directionsL, rover);
