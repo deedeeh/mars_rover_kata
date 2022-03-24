@@ -1,4 +1,4 @@
-import Plateau from "./modules/Plateau"
+import { Plateau } from "./modules/Plateau"
 import Rover from "./modules/Rover"
 
 interface Directions {
