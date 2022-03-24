@@ -1,11 +1,11 @@
 import { Plateau } from "./modules/Plateau"
-import Rover from "./modules/Rover"
+import { Direction, Rover } from "./modules/Rover"
 
-interface Directions {
-  N: string;
-  S: string;
-  W: string;
-  E: string;
+interface Rotations {
+  N: Direction;
+  S: Direction;
+  W: Direction;
+  E: Direction;
 }
 
 /** 
@@ -39,8 +39,8 @@ export const moveRoversOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theR
   */
 
 const isValidMovement = (plateau: Plateau, rover: Rover): boolean => {
-  const directionsL = {N: 'W', S: 'E', W: 'S', E: 'N'}
-  const directionsR = {N: 'E', S: 'W', W: 'N', E: 'S'}
+  const directionsL: Rotations = {N: 'W', S: 'E', W: 'S', E: 'N'}
+  const directionsR: Rotations = {N: 'E', S: 'W', W: 'N', E: 'S'}
   let isValid = true; 
 
   rover.instructions.toUpperCase().split('').forEach(letter => {
@@ -68,10 +68,10 @@ const isValidMovement = (plateau: Plateau, rover: Rover): boolean => {
    * @returns the rover new direction based on L or R
   */
 
-const directionsFunctionality = (directions: Directions, rover: Rover): string => {
+const directionsFunctionality = (rotations: Rotations, rover: Rover): Direction => {
   const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
-  const foundKey = getKeys(directions).find(direction => direction === rover.direction) || 'N';
-  return directions[foundKey];
+  const foundKey = getKeys(rotations).find(rotation => rotation === rover.direction) || 'N';
+  return rotations[foundKey];
 }
 
 /** 

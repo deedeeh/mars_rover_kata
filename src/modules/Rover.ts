@@ -1,22 +1,27 @@
-export default class Rover {
+export type Direction = 'N'|'S'|'W'|'E'
+
+export class Rover {
   x: number;
   y: number;
-  direction: string;
+  direction: Direction;
   instructions: string;
 
-  constructor(x: number, y: number, direction: string, instructions: string) {
+  constructor(x: number, y: number, direction: Direction, instructions: string) {
+    this.x = x;
+    this.y = y;
+    this.direction = direction;
+    this.instructions = instructions;
+  }   
+
+  hasRoverValidCoordinates(x: number, y: number): boolean {
+    let isValid = false
     if(x >= 0 && y >= 0) {
       this.x = x;
       this.y = y;
+      isValid = true;
     } else {
       throw new Error('Coordinates should be bigger than or equal to 0');
     }
-    if(direction === 'N' || direction === 'S' || direction === 'W' || direction === 'E') {
-      this.direction = direction;
-    } else {
-      throw new Error('Direction should be 1 capital letter of N, S, W or E');
-    } 
-
-    this.instructions = instructions;
-  }   
+    return isValid;
+  }
 }
