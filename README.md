@@ -56,7 +56,7 @@ Currently the program accepts more than one rover on the same plateau but it doe
 
 ## Want to check it in action? 🤔
 
-1. Fork this repo to your Github and then clone the forked version locally to your machine.
+1. Clone this repo locally to your machine.
 
 2. You need to install the packages in package.json by running:
 
