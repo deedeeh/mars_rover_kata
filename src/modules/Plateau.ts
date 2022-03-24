@@ -1,13 +1,16 @@
-export default class Plateau {
+export const MIN_PLATEAU_SIZE = 3;
+export const MAX_PLATEAU_SIZE = 25;
+
+export class Plateau {
   x: number;
   y: number;
 
   constructor(x: number, y: number) {
-    if((x >= 3 && x <= 25) && (y >= 3 && y <= 25)) {
+    if((x >= MIN_PLATEAU_SIZE && x <= MAX_PLATEAU_SIZE) && (y >= MIN_PLATEAU_SIZE && y <= MAX_PLATEAU_SIZE)) {
       this.x = x;
       this.y = y;
     } else {
-      throw new Error('Coordinates should be bigger than 2 and less than 26'); 
+      throw new Error(`Coordinates should be between ${MIN_PLATEAU_SIZE} and ${MAX_PLATEAU_SIZE}. You entered ${x} and ${y}`); 
     }
   }
 }

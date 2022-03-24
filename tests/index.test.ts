@@ -3,7 +3,7 @@ import Plateau from '../src/modules/Plateau';
 import Rover from '../src/modules/Rover';
 
 describe('moveRoversOnPlateau', () => {
-
+  
   test.each([
     {
       plateau: {x: 4, y: 4}, 
