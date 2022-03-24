@@ -9,7 +9,7 @@ describe('Plateau', () => {
     {x: 25, y: 25}
   ])(`returns a plateau coordinates between numbers ${MIN_PLATEAU_SIZE} and ${MAX_PLATEAU_SIZE}`, ({x, y}) => {
     const plateau = new Plateau(x, y) 
-    expect(plateau).toBeTruthy;
+    expect(plateau.isPlateauSizeValid).toBeTruthy;
   });
 
   test.each([
@@ -20,7 +20,8 @@ describe('Plateau', () => {
     {x: 30, y: 30}
   ])(`throws an error if coordinates are less than ${MIN_PLATEAU_SIZE} and more than ${MAX_PLATEAU_SIZE}`, ({x, y}) => {
     expect(() => {
-      new Plateau(x, y);
+      const plateau = new Plateau(x, y);
+      plateau.isPlateauSizeValid(x, y)
     }).toThrow(`Coordinates should be between ${MIN_PLATEAU_SIZE} and ${MAX_PLATEAU_SIZE}. You entered ${x} and ${y}`);
   })
 })
