@@ -54,8 +54,6 @@ const isValidMovement = (plateau: Plateau, rover: Rover): boolean => {
       case 'M': 
         isValid = isValidMove(plateau, rover);
         break;
-      default: 
-        throw new Error('Instructions may include letter L, R and M');
       }
   });
   return isValid;
