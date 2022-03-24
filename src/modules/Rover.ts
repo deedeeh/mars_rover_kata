@@ -1,12 +1,13 @@
 export type Direction = 'N'|'S'|'W'|'E'
+export type Instructions = 'L'|'R'|'M'
 
 export class Rover {
   x: number;
   y: number;
   direction: Direction;
-  instructions: string;
+  instructions: Instructions;
 
-  constructor(x: number, y: number, direction: Direction, instructions: string) {
+  constructor(x: number, y: number, direction: Direction, instructions: Instructions) {
     this.x = x;
     this.y = y;
     this.direction = direction;

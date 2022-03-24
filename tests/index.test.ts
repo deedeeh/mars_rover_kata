@@ -1,19 +1,19 @@
 import { moveRoversOnPlateau } from '../src/index'
 import { Plateau } from '../src/modules/Plateau';
-import { Direction, Rover } from '../src/modules/Rover';
+import { Direction, Instructions, Rover } from '../src/modules/Rover';
 
 describe('moveRoversOnPlateau', () => {
 
   test.each([
     {
       plateau: {x: 4, y: 4}, 
-      rover1: {x: 1, y: 3, direction: 'N' as Direction, instructions: 'LMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 3, W)'}, 
-      rover2: {x: 2, y: 4, direction: 'N' as Direction, instructions: 'RMLM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (3, 4, N)'}
+      rover1: {x: 1, y: 3, direction: 'N' as Direction, instructions: 'LMM' as Instructions, expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 3, W)'}, 
+      rover2: {x: 2, y: 4, direction: 'N' as Direction, instructions: 'RMLM' as Instructions, expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (3, 4, N)'}
     }, 
     {
       plateau: {x: 10, y: 5}, 
-      rover1: {x: 2, y: 2, direction: 'N' as Direction, instructions: 'LMLMMRMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 0, W)'}, 
-      rover2: {x: 8, y: 4, direction: 'E' as Direction, instructions: 'LMRMMM', expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (10, 5, E)'}
+      rover1: {x: 2, y: 2, direction: 'N' as Direction, instructions: 'LMLMMRMM' as Instructions, expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (0, 0, W)'}, 
+      rover2: {x: 8, y: 4, direction: 'E' as Direction, instructions: 'LMRMMM' as Instructions, expected: 'Rover is going to be out of plateau range. It stopped moving at coordinates (10, 5, E)'}
     }, 
   ])('returns a string contains last rover coordinates and direction in plateau range before it stopped', ({plateau, rover1, rover2}) => {
     //Arrange
@@ -34,15 +34,15 @@ describe('moveRoversOnPlateau', () => {
   test.each([ 
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 6, y: 5, direction: 'N' as Direction, instructions: 'LM'},
+      rover: {x: 6, y: 5, direction: 'N' as Direction, instructions: 'LM' as Instructions},
     },
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 4, y: 12, direction: 'N' as Direction, instructions: 'LMLMLMLMM'},
+      rover: {x: 4, y: 12, direction: 'N' as Direction, instructions: 'LMLMLMLMM' as Instructions},
     },
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 8, y: 8, direction: 'E' as Direction, instructions: 'MMRMMRMRRM'},
+      rover: {x: 8, y: 8, direction: 'E' as Direction, instructions: 'MMRMMRMRRM' as Instructions},
     },
   ])('throws an error if rover given coordinates ($rover.x, $rover.y) are bigger than plateau given coordinates ($plateau.x, $plateau.y)', ({plateau, rover}) => {
   const thePlateau = new Plateau(plateau.x, plateau.y);
@@ -57,19 +57,19 @@ describe('moveRoversOnPlateau', () => {
   test.each([
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 1, y: 1, direction: 'N' as Direction, instructions: 'LM', expected: '0, 1, W'},
+      rover: {x: 1, y: 1, direction: 'N' as Direction, instructions: 'LM' as Instructions, expected: '0, 1, W'},
     },
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 1, y: 2, direction: 'N' as Direction, instructions: 'LMLMLMLMM', expected: '1, 3, N'},
+      rover: {x: 1, y: 2, direction: 'N' as Direction, instructions: 'LMLMLMLMM' as Instructions, expected: '1, 3, N'},
     },
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 3, y: 3, direction: 'E' as Direction, instructions: 'MMRMMRMRRM', expected: '5, 1, E'},
+      rover: {x: 3, y: 3, direction: 'E' as Direction, instructions: 'MMRMMRMRRM' as Instructions, expected: '5, 1, E'},
     },
     {
       plateau: {x: 10, y: 8}, 
-      rover: {x: 4, y: 2, direction: 'W' as Direction, instructions: 'MRMLMRMMLM', expected: '1, 5, W'},
+      rover: {x: 4, y: 2, direction: 'W' as Direction, instructions: 'MRMLMRMMLM' as Instructions, expected: '1, 5, W'},
     },
   ])('returns the correct corrdinates and direction after moving 1 rover on Mars plateau', ({plateau, rover}) => {
     //Arrange
@@ -87,13 +87,13 @@ describe('moveRoversOnPlateau', () => {
   test.each([
     {
       plateau: {x: 5, y: 5}, 
-      rover1: {x: 3, y: 3, direction: 'E' as Direction, instructions: 'MMRMMRMRRM', expected: '5, 1, E'},
-      rover2: {x: 1, y: 2, direction: 'N' as Direction, instructions: 'LMLMLMLMM', expected: '1, 3, N'}, 
+      rover1: {x: 3, y: 3, direction: 'E' as Direction, instructions: 'MMRMMRMRRM' as Instructions, expected: '5, 1, E'},
+      rover2: {x: 1, y: 2, direction: 'N' as Direction, instructions: 'LMLMLMLMM' as Instructions, expected: '1, 3, N'}, 
     }, 
     {
       plateau: {x: 5, y: 5}, 
-      rover1: {x: 1, y: 1, direction: 'N' as Direction, instructions: 'LM', expected: '0, 1, W'},
-      rover2: {x: 4, y: 2, direction: 'W' as Direction, instructions: 'MRMLMRMMLM', expected: '1, 5, W'}, 
+      rover1: {x: 1, y: 1, direction: 'N' as Direction, instructions: 'LM' as Instructions, expected: '0, 1, W'},
+      rover2: {x: 4, y: 2, direction: 'W' as Direction, instructions: 'MRMLMRMMLM' as Instructions, expected: '1, 5, W'}, 
     },
   ])('returns the correct corrdinates and directions after moving multiple rovers on Mars plateau', ({plateau, rover1, rover2}) => {
     //Arrange
@@ -114,28 +114,11 @@ describe('moveRoversOnPlateau', () => {
   test.each([
     {
       plateau: {x: 5, y: 5}, 
-      rover: {x: 1, y: 2, direction: 'N' as Direction, instructions: 'lmlmlmlmm', expected: '1, 3, N'},
-    },
-    {
-      plateau: {x: 5, y: 5}, 
-      rover: {x: 3, y: 3, direction: 'E' as Direction, instructions: 'MmrMMrmrRM', expected: '5, 1, E'},
-    },
-  ])('ignores case sensitive letters in instructions', ({plateau, rover}) => {
-    const thePlateau = new Plateau(plateau.x, plateau.y);
-    const theRover = new Rover(rover.x, rover.y, rover.direction, rover.instructions);
-    const rovers = [theRover]
-    const movedRoverOnPlateau = moveRoversOnPlateau(thePlateau, rovers, theRover)
-    expect(movedRoverOnPlateau).toEqual(rover.expected);
-  });
-
-  test.each([
-    {
-      plateau: {x: 5, y: 5}, 
-      rover: {x: 1, y: 2, direction: 'W' as Direction, instructions: 'LMMB'},
+      rover: {x: 1, y: 2, direction: 'W' as Direction, instructions: 'LMMB' as Instructions},
     },
     {
       plateau: {x: 8, y: 8}, 
-      rover: {x: 1, y: 2, direction: 'E' as Direction, instructions: 'MRRAA'},
+      rover: {x: 1, y: 2, direction: 'E' as Direction, instructions: 'MRRAA' as Instructions},
     },
   ])('throws an error if instructions includes letters that are not L, R and M', ({plateau, rover}) => {
     const thePlateau = new Plateau(plateau.x, plateau.y);

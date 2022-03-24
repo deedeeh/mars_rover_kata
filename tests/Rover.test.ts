@@ -1,7 +1,7 @@
-import { Direction, Rover } from '../src/modules/Rover';
+import { Direction, Instructions, Rover } from '../src/modules/Rover';
 
 describe('Rover', () => {
-  const instructions = 'LM'
+  const instructions = 'LM' as Instructions
   const direction: Direction = 'N'
 
   test.each([
