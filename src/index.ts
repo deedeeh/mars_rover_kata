@@ -1,7 +1,7 @@
 import { Plateau } from "./modules/Plateau"
 import { Direction, Rover } from "./modules/Rover"
 
-interface Rotations {
+interface Rotation {
   N: Direction;
   S: Direction;
   W: Direction;
@@ -27,7 +27,7 @@ export const moveRoversOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theR
     throw new Error('Plateau given coordinates must be bigger than or equal to rover given coordinates.');
   }
 
-  return isValid === true ? `${foundRover.x}, ${foundRover.y}, ${foundRover.direction}`
+  return isValid ? `${foundRover.x}, ${foundRover.y}, ${foundRover.direction}`
   : `Rover is going to be out of plateau range. It stopped moving at coordinates (${foundRover.x}, ${foundRover.y}, ${foundRover.direction})`
 }
 
@@ -39,8 +39,8 @@ export const moveRoversOnPlateau = (plateau: Plateau, rovers: Array<Rover>, theR
   */
 
 const isValidMovement = (plateau: Plateau, rover: Rover): boolean => {
-  const directionsL: Rotations = {N: 'W', S: 'E', W: 'S', E: 'N'}
-  const directionsR: Rotations = {N: 'E', S: 'W', W: 'N', E: 'S'}
+  const directionsL: Rotation = {N: 'W', S: 'E', W: 'S', E: 'N'}
+  const directionsR: Rotation = {N: 'E', S: 'W', W: 'N', E: 'S'}
   let isValid = true; 
 
   rover.instructions.toUpperCase().split('').forEach(letter => {
@@ -63,12 +63,12 @@ const isValidMovement = (plateau: Plateau, rover: Rover): boolean => {
 
 /** 
    * Implements the functionality of rover direction when moving left or right
-   * @param directions - type Directions  
+   * @param rotations - type Rotation  
    * @param rover - type Rover 
    * @returns the rover new direction based on L or R
   */
 
-const directionsFunctionality = (rotations: Rotations, rover: Rover): Direction => {
+const directionsFunctionality = (rotations: Rotation, rover: Rover): Direction => {
   const getKeys = Object.keys as <T extends object>(obj: T) => Array<keyof T>
   const foundKey = getKeys(rotations).find(rotation => rotation === rover.direction) || 'N';
   return rotations[foundKey];

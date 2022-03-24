@@ -12,7 +12,7 @@ describe('Rover', () => {
     {x: 25, y: 25}
   ])(`returns a rover with valid coordinates`, ({x, y}) => {
     const rover = new Rover(x, y, direction, instructions) 
-    expect(rover.hasRoverValidCoordinates(x, y)).toBeTruthy;
+    expect(rover.areRoverCoordinatesValid(x, y)).toBeTruthy;
   });
 
   test.each([
@@ -22,7 +22,7 @@ describe('Rover', () => {
   ])('throws an error if x or y are negative numbers', ({x, y}) => {
     expect(() => {
       const rover = new Rover(x, y, direction, instructions)
-      rover.hasRoverValidCoordinates(x, y)
+      rover.areRoverCoordinatesValid(x, y)
     }).toThrow('Coordinates should be bigger than or equal to 0');
   })
 

@@ -13,7 +13,7 @@ export class Rover {
     this.instructions = instructions;
   }   
 
-  hasRoverValidCoordinates(x: number, y: number): boolean {
+  areRoverCoordinatesValid(x: number, y: number): boolean {
     let isValid = false
     if(x >= 0 && y >= 0) {
       this.x = x;
