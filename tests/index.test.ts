@@ -111,22 +111,4 @@ describe('moveRoversOnPlateau', () => {
     expect(movedRoverOnPlateau_2).toBe(rover2.expected);
   })
 
-  test.each([
-    {
-      plateau: {x: 5, y: 5}, 
-      rover: {x: 1, y: 2, direction: 'W' as Direction, instructions: 'LMMB' as Instructions},
-    },
-    {
-      plateau: {x: 8, y: 8}, 
-      rover: {x: 1, y: 2, direction: 'E' as Direction, instructions: 'MRRAA' as Instructions},
-    },
-  ])('throws an error if instructions includes letters that are not L, R and M', ({plateau, rover}) => {
-    const thePlateau = new Plateau(plateau.x, plateau.y);
-    const theRover = new Rover(rover.x, rover.y, rover.direction, rover.instructions);
-    const rovers = [theRover]
-    expect(() => {
-      moveRoversOnPlateau(thePlateau, rovers, theRover)
-    }).toThrow('Instructions may include letter L, R and M');
-  });
-
 });
